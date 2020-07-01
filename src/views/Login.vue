@@ -3,6 +3,9 @@
     <h1>Connexion {{ $route.params.espace }}</h1>
 
     <form v-if="$route.params.espace===dmo">
+
+
+        
         <div>
             <label>Email</label>
             <input type="mail" name="email" placeholder="Adresse email" v-model="email" required/>
