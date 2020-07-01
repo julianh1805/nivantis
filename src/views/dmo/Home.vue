@@ -2,13 +2,13 @@
   <div class="home">
     <h1 class="espace">Espace DMO</h1>
     <div class="menu">
-      <div class="action" v-on:click="navigate('dmo/ajouter-des-données-sur-une-officine')">
+      <div class="action" v-on:click="navigate('ajouter-des-données-sur-une-officine')">
         <b-icon-folder-plus class="icon"></b-icon-folder-plus>Ajouter des données sur une officine
       </div>
-      <div class="action" v-on:click="navigate('dmo/calcul-des-achats-de-la-pharmacie')">
+      <div class="action" v-on:click="navigate('calcul-des-achats-de-la-pharmacie')">
         <b-icon-list-ul class="icon"></b-icon-list-ul>Calcul des achats de la pharmacie
       </div>
-      <div class="action" v-on:click="navigate('dmo/ajouter-des-données-sur-une-offficine')">
+      <div class="action" v-on:click="navigate('ajouter-des-données-sur-une-offficine')">
         <b-icon-cart-2 class="icon"></b-icon-cart-2>Vendre des médicaments
       </div>
     </div>
