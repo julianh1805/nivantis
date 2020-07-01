@@ -10,12 +10,19 @@ const routes = [{
     component: Home
   },
   {
-    path: '/dmo/Home',
+    path: '/dmo',
     name: 'Home',
-    // route level code-splitting
-    // this generates a separate chunk (Home.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import( /* webpackChunkName: "Home" */ '../views/dmo/Home.vue')
+    component: () => import('../views/dmo/Home.vue')
+  },
+  {
+    path: '/dmo/ajouter-des-données-sur-une-officine',
+    name: 'Add',
+    component: () => import('../views/dmo/Add.vue')
+  },
+  {
+    path: '/dmo/calcul-des-achats-de-la-pharmacie',
+    name: 'Calcul',
+    component: () => import('../views/dmo/Calcul.vue')
   }
 ]
 

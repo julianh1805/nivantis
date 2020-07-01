@@ -2,8 +2,7 @@
   <div id="app">
     <div>
       <b-navbar toggleable="lg" type="dark" variant="info">
-        <b-navbar-brand href="#">Medicaments</b-navbar-brand>
-
+        <b-navbar-brand href="/">Medicaments</b-navbar-brand>
         <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
         <b-collapse id="nav-collapse" is-nav>
@@ -28,7 +27,7 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
+  color: #004660;
   background-color: white;
 }
 
@@ -39,5 +38,40 @@ nav {
     rgba(20, 233, 1, 0.856) 35%,
     rgb(1, 122, 11) 100%
   );
+}
+form {
+  width: 60%;
+  margin: auto;
+}
+form label {
+  color: #004660;
+}
+
+div.center {
+  display: flex;
+  justify-content: center;
+}
+
+button.principal {
+  color: white;
+  background-color: #004660;
+  border-color: #004660;
+  transition-duration: 0.4s;
+}
+button.principal:hover {
+  background-color: #013142;
+  border-color: #004660;
+}
+
+button.secondary {
+  color: #495057;
+  background-color: #e6e6e6;
+  border-color: #e6e6e6;
+  transition-duration: 0.4s;
+}
+button.secondary:hover {
+  color: #495057;
+  background-color: #c4c4c4;
+  border-color: #c4c4c4;
 }
 </style>
