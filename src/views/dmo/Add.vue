@@ -6,6 +6,23 @@
       <b-form-group id="pharmacie" label="Pharmacie:" label-for="pharmacie">
         <b-form-select id="pharmacie" v-model="form.pharmacie" :options="pharmacies" required></b-form-select>
       </b-form-group>
+      <b-form-group id="nb_pharmacien" label="Nombre de pharmaciens :" label-for="nb_pharmacien">
+        <b-form-input id="nb_pharmacien" type="number" v-model="form.nb_pharmacien" required></b-form-input>
+      </b-form-group>
+      <b-form-group id="horaire" label="Horaire d'ouverture :" label-for="horaire">
+        <b-form-input id="horaire" type="time" v-model="form.horaire" required></b-form-input>
+      </b-form-group>
+      <b-form-group id="garde" label="Jour de garde :" label-for="garde">
+        <b-form-checkbox-group id="checkbox-group-jour_garde" v-model="selected" name="flavour-2">
+          <b-form-checkbox value="lundi">Lundi</b-form-checkbox>
+          <b-form-checkbox value="mardi">Mardi</b-form-checkbox>
+          <b-form-checkbox value="mercredi">Mercredi</b-form-checkbox>
+          <b-form-checkbox value="jeudi">Jeudi</b-form-checkbox>
+          <b-form-checkbox value="vendredi">Vendredi</b-form-checkbox>
+          <b-form-checkbox value="samedi">Samedi</b-form-checkbox>
+          <b-form-checkbox value="dimanche">Dimanche</b-form-checkbox>
+        </b-form-checkbox-group>
+      </b-form-group>
       <b-form-group id="achats" label="Les achats en € :" label-for="achats">
         <b-form-input id="achats" type="number" v-model="form.achats" required></b-form-input>
       </b-form-group>
@@ -30,7 +47,15 @@ import router from "../../router/index";
 export default {
   data() {
     return {
-      form: { pharmacie: null, achats: 0, ventes: 0, besoins: "" },
+      form: {
+        pharmacie: null,
+        nb_pharmacien: null,
+        horaire: null,
+        garde: null,
+        achats: 0,
+        ventes: 0,
+        besoins: ""
+      },
       pharmacies: ["Test 1", "Test 2"]
     };
   },
