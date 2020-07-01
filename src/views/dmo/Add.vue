@@ -13,15 +13,14 @@
         <b-form-input id="horaire" type="time" v-model="form.horaire" required></b-form-input>
       </b-form-group>
       <b-form-group id="garde" label="Jour de garde :" label-for="garde">
-        <b-form-checkbox-group id="checkbox-group-jour_garde" v-model="selected" name="flavour-2">
-          <b-form-checkbox value="lundi">Lundi</b-form-checkbox>
-          <b-form-checkbox value="mardi">Mardi</b-form-checkbox>
-          <b-form-checkbox value="mercredi">Mercredi</b-form-checkbox>
-          <b-form-checkbox value="jeudi">Jeudi</b-form-checkbox>
-          <b-form-checkbox value="vendredi">Vendredi</b-form-checkbox>
-          <b-form-checkbox value="samedi">Samedi</b-form-checkbox>
-          <b-form-checkbox value="dimanche">Dimanche</b-form-checkbox>
-        </b-form-checkbox-group>
+        <b-form-checkbox-group
+          id="checkbox-group-jour_garde"
+          v-model="selected"
+          :options="options"
+          name="flavour-2"
+          text-field="jour"
+          value-field="jour"
+        ></b-form-checkbox-group>
       </b-form-group>
       <b-form-group id="achats" label="Les achats en € :" label-for="achats">
         <b-form-input id="achats" type="number" v-model="form.achats" required></b-form-input>
@@ -56,7 +55,17 @@ export default {
         ventes: 0,
         besoins: ""
       },
-      pharmacies: ["Test 1", "Test 2"]
+      pharmacies: ["Test 1", "Test 2"],
+      selected: [],
+      options: [
+        { jour: "Lundi" },
+        { jour: "Mardi" },
+        { jour: "Mercredi" },
+        { jour: "Jeudi" },
+        { jour: "Vendredi" },
+        { jour: "Samedi" },
+        { jour: "Dimanche" }
+      ]
     };
   },
   methods: {
