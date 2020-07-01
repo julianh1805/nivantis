@@ -10,7 +10,21 @@ const routes = [{
     component: Home
   },
   {
+<<<<<<< HEAD
     path: '/dmo',
+=======
+    path: '/login/:espace',//":espace = variable"
+    name: 'Login',
+    component: () => import('../views/Login.vue')
+  },
+  {
+    path: '/register/dmo',
+    name: 'RegisterDmo',
+    component: () => import('../views/RegisterDmo.vue')
+  },
+  {
+    path: '/dmo/Home',
+>>>>>>> 391065d51891715df3f085c50e57e925af96d12f
     name: 'Home',
     component: () => import('../views/dmo/Home.vue')
   },
