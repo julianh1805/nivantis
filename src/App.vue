@@ -1,49 +1,48 @@
 <template>
-   <div id="app">
+  <div id="app">
     <div>
       <b-navbar toggleable="lg" type="dark" variant="info">
         <b-navbar-brand href="/">Medicaments</b-navbar-brand>
         <b-navbar-toggle @click.stop="drawer = true" target="nav-collapse"></b-navbar-toggle>
 
-        <b-collapse id="nav-collapse" is-nav>
-        </b-collapse>
+        <b-collapse id="nav-collapse" is-nav></b-collapse>
       </b-navbar>
-   <v-navigation-drawer
-      absolute
-      permanent
-      right
-      v-show="drawer===true"
-    >
-      <template v-slot:prepend>
-        <v-list-item two-line>
-          
-          <v-list-item-avatar>
-            <v-icon large color="green darken-2" @click="drawer=false">mdi-close-box</v-icon>
-          </v-list-item-avatar>
+      <v-navigation-drawer absolute permanent right v-show="drawer===true">
+        <template v-slot:prepend>
+          <v-list-item two-line>
+            <v-list-item-avatar>
+              <v-icon large color="green darken-2" @click="drawer=false">mdi-close-box</v-icon>
+            </v-list-item-avatar>
 
-          <v-list-item-content>
-            <v-list-item-title><h1>Nivantis</h1></v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-      </template>
+            <v-list-item-content>
+              <v-list-item-title>
+                <h1>Nivantis</h1>
+              </v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+        </template>
 
-      <v-divider></v-divider>
+        <v-divider></v-divider>
 
-      <v-list dense>
-       <v-flex>
-         <v-flex>
-        <v-btn depressed small class="btn btn-accent mt-5 pt-2" to="/login/nivantis">Espace Nivantis</v-btn>
-       </v-flex>
-       <v-flex>
-        <v-btn depressed small class="btn btn-accent mt-5 pt-2" to="/login/dmo">Espace DMO</v-btn>
-       </v-flex>
-       <v-flex>
-        <v-btn depressed small class="btn btn-accent mt-5 pt-2" to="/dmo/home">Espace DMO</v-btn>
-      </v-flex>
-       </v-flex>
-
-      </v-list>
-    </v-navigation-drawer>
+        <v-list dense>
+          <v-flex>
+            <v-flex>
+              <v-btn
+                depressed
+                small
+                class="btn btn-accent mt-5 pt-2"
+                to="/login/nivantis"
+              >Espace Nivantis</v-btn>
+            </v-flex>
+            <v-flex>
+              <v-btn depressed small class="btn btn-accent mt-5 pt-2" to="/login/dmo">Espace DMO</v-btn>
+            </v-flex>
+            <v-flex>
+              <v-btn depressed small class="btn btn-accent mt-5 pt-2" to="/dmo/home">Espace DMO</v-btn>
+            </v-flex>
+          </v-flex>
+        </v-list>
+      </v-navigation-drawer>
     </div>
     <!-- <div id="nav">
       <router-link to="/">Home</router-link>|
@@ -53,14 +52,14 @@
     <router-view />
   </div>
 </template>
-c<script>
+<script>
 export default {
-  data () {
-      return {
-        drawer: false,
-      }
-    },
-}
+  data() {
+    return {
+      drawer: false
+    };
+  }
+};
 </script>
 
 <style>
@@ -94,15 +93,18 @@ div.center {
   justify-content: center;
 }
 
-button.principal {
-  color: white;
-  background-color: #004660;
-  border-color: #004660;
+button.principal,
+a.principal {
+  color: white !important;
+  background-color: #004660 !important;
+  border-color: #004660 !important;
   transition-duration: 0.4s;
 }
-button.principal:hover {
-  background-color: #013142;
-  border-color: #004660;
+button.principal:hover,
+a.principal:hover {
+  color: white !important;
+  background-color: #013142 !important;
+  border-color: #013142 !important;
 }
 
 button.secondary {
