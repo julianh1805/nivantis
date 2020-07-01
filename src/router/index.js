@@ -10,6 +10,16 @@ const routes = [{
     component: Home
   },
   {
+    path: '/login/:espace',//":espace = variable"
+    name: 'Login',
+    component: () => import('../views/Login.vue')
+  },
+  {
+    path: '/register/dmo',
+    name: 'RegisterDmo',
+    component: () => import('../views/RegisterDmo.vue')
+  },
+  {
     path: '/dmo/Home',
     name: 'Home',
     // route level code-splitting
