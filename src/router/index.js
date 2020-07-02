@@ -20,7 +20,7 @@ const routes = [{
     component: () => import('../views/RegisterDmo.vue')
   },
   {
-    path: '/dmo/Home',
+    path: '/dmo/home',
     name: 'Home',
     component: () => import('../views/dmo/Home.vue')
   },
@@ -38,6 +38,11 @@ const routes = [{
     path: '/dmo/commande-de-medicaments',
     name: 'Command',
     component: () => import('../views/dmo/Command.vue')
+  },
+  {
+    path: '/nivantis/home',
+    name: 'List',
+    component: () => import('../views/nivantis/List.vue')
   }
 ]
 
