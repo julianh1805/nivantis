@@ -18,11 +18,12 @@
           <p class="mb-1">Informations sur le produit :</p>
           <li>- Nom : {{medicament.nom}}</li>
           <li>- Prix : {{medicament.prix}}€</li>
+          <li>- Remise : {{medicament.remise}}%</li>
         </ul>
       </div>
       <div class="prices">
         <ul v-if="medicament.nom">
-          <p class="mb-1">Prix du médicament :</p>
+          <p class="mb-1">Calculs commerciaux du produit :</p>
           <li>
             <b>- Taux de remise : </b><!-- (1 - Prix de d’achat net / Prix d’achat brut) x 100 -->
             <span>{{medicament.tauxRemise * 100}} %</span>
