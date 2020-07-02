@@ -8,8 +8,8 @@
       <div class="action" v-on:click="navigate('calcul-des-achats-de-la-pharmacie')">
         <b-icon-list-ul class="icon"></b-icon-list-ul>Calcul des achats de la pharmacie
       </div>
-      <div class="action" v-on:click="navigate('ajouter-des-données-sur-une-offficine')">
-        <b-icon-cart-2 class="icon"></b-icon-cart-2>Vendre des médicaments
+      <div class="action" v-on:click="navigate('commande-de-medicaments')">
+        <b-icon-cart-2 class="icon"></b-icon-cart-2>Commande de médicaments
       </div>
     </div>
   </div>
