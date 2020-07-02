@@ -2,9 +2,10 @@
   <div id="app">
     <div>
       <b-navbar toggleable="lg" type="dark" variant="info">
-              <router-link to="/">Nivantis</router-link>
-        </b-navbar>
-</div>
+        <router-link to="/">Nivantis</router-link>
+        <router-link to="/">Se déconnecter</router-link>
+      </b-navbar>
+    </div>
     <router-view />
   </div>
 </template>
@@ -28,21 +29,20 @@ export default {
   background-color: white;
 }
 
-#app .router-link-active{
-display: inline-block;
-    padding-top: 0.3125rem;
-    padding-bottom: 0.3125rem;
-    margin-right: 1rem;
-    font-size: 1.25rem;
-    line-height: inherit;
-    white-space: nowrap;
-    color:white;
-      transition: 0.4s;
+#app .router-link-active {
+  display: inline-block;
+  padding-top: 0.3125rem;
+  padding-bottom: 0.3125rem;
+  margin-right: 1rem;
+  font-size: 1.25rem;
+  line-height: inherit;
+  white-space: nowrap;
+  color: white;
+  transition: 0.4s;
 }
-#app .router-link-active:hover{
-text-decoration: none;
-    color:rgb(241, 241, 241);
-
+#app .router-link-active:hover {
+  text-decoration: none;
+  color: rgb(241, 241, 241);
 }
 
 nav {

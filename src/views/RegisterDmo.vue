@@ -19,7 +19,7 @@
       </b-form-group>
       <b-form-group id="password" label label-for="password">
         <b-form-input
-          id="password"
+          id="password-confirm"
           v-model="password_confirmation"
           type="password"
           name="password_confirmation"
