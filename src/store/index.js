@@ -31,6 +31,7 @@ const actions = {
 
 const getters = {
   isLogged: (state) => state.currentUser.isLogged,
+  getCurrentRole: (state) => state.currentUser.userRole,
 };
 
 export default new Vuex.Store({
