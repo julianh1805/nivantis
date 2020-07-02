@@ -78,22 +78,22 @@ export default {
       this.medicament = this.medicaments.find(
         medicament => medicament.id === +medicamentId
       );
-      this.prixAchatNet = this.calculPrixAchatNet(this.medicament.prix,this.medicament.remise).toFixed(2);
-      this.tauxRemise = this.calculTauxDeRemise(this.prixAchatNet,this.medicament.prix);
-      this.prixVenteNet = this.calculPrixVenteNet(this.prixAchatNet,this.coefficientMultiplicateur).toFixed(2);
+      this.prixAchatNet = this.calculPrixAchatNet(this.medicament.prix,this.medicament.remise)
+      this.tauxRemise = this.calculTauxDeRemise(this.prixAchatNet,this.medicament.prix)
+      this.prixVenteNet = this.calculPrixVenteNet(this.prixAchatNet,this.coefficientMultiplicateur)
       //this.coefficientMultiplicateur=this.calculCoefficientMultiplicateur()
     },
     calculPrixAchatNet(prix,remise) {
       let calcul = prix * (1 - remise / 100);
-      return calcul;
+      return calcul.toFixed(2);
     },
     calculTauxDeRemise(prixAchatNet,prix) {
       let calcul = (1 - + prixAchatNet / prix) * 100;
-      return calcul;
+      return calcul.toFixed(2);
     },
     calculPrixVenteNet(prixAchatNet,coefficientMultiplicateur) {
       let calcul = prixAchatNet * coefficientMultiplicateur;
-      return calcul;
+      return calcul.toFixed(2);
     }
     /*calculCoefficientMultiplicateur(){
       let calcul= this.prixVenteNet/this.prixAchatNet
