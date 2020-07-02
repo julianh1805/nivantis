@@ -1,32 +1,41 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
+import Vue from "vue";
+import Vuex from "vuex";
 
-Vue.use(Vuex)
+Vue.use(Vuex);
 
 const state = {
-  currentUser: null,
-  currentChannel: null,
-}
+  currentUser: {
+    userId: null,
+    userEmail: null,
+    userRole: null,
+    isLogged: false,
+  },
+};
 
 const mutations = {
-  SET_USER(state,user){
-      state.currentUser = user
-  }
-}
+  setUser(state, user) {
+    state.currentUser = {
+      userId: user.user.uid,
+      userEmail: user.user.email,
+      userRole: user.role,
+      isLogged: true,
+    };
+  },
+};
 
 const actions = {
-  setUser({commit},user){
-      commit("SET_USER",user)
-  }
-}
+  setUser({ commit }, user) {
+    commit("setUser", user);
+  },
+};
 
 const getters = {
-  currentUser: state => state.currentUser
-}
+  isLogged: (state) => state.currentUser.isLogged,
+};
 
 export default new Vuex.Store({
   state,
   mutations,
   actions,
-  getters
-})
+  getters,
+});

@@ -36,9 +36,9 @@
         <b-button type="submit" class="secondary ml-1" v-on:click="navigate()">Annuler</b-button>
       </div>
     </b-form>
-    <b-card class="mt-3" header="Form Data Result">
+    <!-- <b-card class="mt-3" header="Form Data Result">
       <pre class="m-0">{{ form }}</pre>
-    </b-card>
+    </b-card> -->
   </div>
 </template> 
 <script>
