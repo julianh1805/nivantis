@@ -36,7 +36,7 @@ const routes = [
     meta: {
       requiresAuth: true,
     },
-  },
+  }
   {
     path: "/dmo/ajouter-des-données-sur-une-officine",
     name: "Add",
@@ -61,7 +61,15 @@ const routes = [
       requiresAuth: true,
     },
   },
-];
+  {
+    path: '/nivantis/home',
+    name: 'List',
+    component: () => import('../views/nivantis/List.vue'),
+      meta: {
+      requiresAuth: true,
+    },
+  }
+]
 const router = new VueRouter({
   mode: "history",
   base: process.env.BASE_URL,
