@@ -22,11 +22,7 @@
       </b-form-group>
       <b-form-group id="password_verification" label label-for="password_verification">
         <b-form-input
-<<<<<<< HEAD
-          id="password-confirm"
-=======
           id="password_confirmation"
->>>>>>> 78edb2a6c9431c0d0c73605ba5423e774e0ce96b
           v-model="password_confirmation"
           type="password"
           name="password_confirmation"

@@ -21,11 +21,22 @@ const mutations = {
       isLogged: true,
     };
   },
+  logOut(state) {
+    state.currentUser = {
+      userId: null,
+      userEmail: null,
+      userRole: null,
+      isLogged: false,
+    };
+  },
 };
 
 const actions = {
   setUser({ commit }, user) {
     commit("setUser", user);
+  },
+  logOut({ commit }) {
+    commit("logOut", commit);
   },
 };
 
