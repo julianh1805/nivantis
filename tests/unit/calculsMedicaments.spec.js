@@ -8,7 +8,9 @@ let medicaments = [
     { id: 101, nom: "Produit 1", prix: 77, remise: 10 },
     { id: 135, nom: "Produit 2", prix: 3.99, remise: 0 },
     { id: 124, nom: "Produit 3", prix: 2.57, remise: 0 }
-  ]
+]
+
+let coefficientMultiplicateur = 1.2
 
 it('should emit the good prix achat net',()=>{
     const wrapper = shallowMount(Calcul)
@@ -63,18 +65,11 @@ it('should emit the good calcul prix de vente net',()=>{
     let medicament_3_prix_achat_net = wrapper.vm.calculPrixAchatNet(medicament_3.prix,medicament_3.remise)
 
 
-    let test_medicament_1_taux_de_remise = wrapper.vm.calculTauxDeRemise(medicament_1_prix_achat_net,medicament_1.prix)
-    let test_medicament_2_taux_de_remise = wrapper.vm.calculTauxDeRemise(medicament_2_prix_achat_net,medicament_2.prix)
-    let test_medicament_3_taux_de_remise = wrapper.vm.calculTauxDeRemise(medicament_3_prix_achat_net,medicament_3.prix)
+    let test_medicament_1_prix_vente_net = wrapper.vm.calculPrixVenteNet(medicament_1_prix_achat_net,coefficientMultiplicateur)
+    let test_medicament_2_prix_vente_net = wrapper.vm.calculPrixVenteNet(medicament_2_prix_achat_net,coefficientMultiplicateur)
+    let test_medicament_3_prix_vente_net = wrapper.vm.calculPrixVenteNet(medicament_3_prix_achat_net,coefficientMultiplicateur)
 
-    console.log(test_medicament_1_taux_de_remise)
-    console.log(test_medicament_2_taux_de_remise)
-    console.log(test_medicament_3_taux_de_remise)
-
-    expect(test_medicament_1_taux_de_remise).equals("10.00")
-    expect(test_medicament_2_taux_de_remise).equals("0.00")
-    expect(test_medicament_3_taux_de_remise).equals("0.00")
+    expect(test_medicament_1_prix_vente_net).equals("83.16")
+    expect(test_medicament_2_prix_vente_net).equals("4.79")
+    expect(test_medicament_3_prix_vente_net).equals("3.08")
 });
-
-//this.calculTauxDeRemise(this.prixAchatNet,this.medicament.prix);
-//calculPrixVenteNet(this.prixAchatNet,this.coefficientMultiplicateur)
