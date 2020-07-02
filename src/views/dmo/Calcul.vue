@@ -26,7 +26,7 @@
           <p class="mb-1">Calculs commerciaux du produit :</p>
           <li>
             <b>- Taux de remise : </b><!-- (1 - Prix de d’achat net / Prix d’achat brut) x 100 -->
-            <span>{{medicament.tauxRemise * 100}} %</span>
+            <span>{{(medicament.tauxRemise * 100).toFixed(2)}} %</span>
           </li>
           <li>
             <b>- Prix d’achat net : </b><!-- Prix d’achat brut x (1 – taux de remise) -->
@@ -38,7 +38,7 @@
           </li>
           <li>
             <b>- Coefficient multiplicateur : </b><!-- Prix de vente net / Prix d’achat net -->
-            <span>{{this.coefficientMultiplicateur}}</span>
+            <span>{{this.coefficientMultiplicateur.toFixed(2)}}</span>
           </li>
         </ul>
       </div>
@@ -58,10 +58,10 @@ export default {
         { id: 124, nom: "Produit 3", prix: 2.57, tauxRemise : 0.01 }
       ],
       medicament: {},
-      prix: 0,
+      prix: 0.00,
       prixAchatNet:0,
       prixVenteNet:0,
-      coefficientMultiplicateur:1.2,
+      coefficientMultiplicateur:1.20,
     };
   },
   methods: {
@@ -73,8 +73,8 @@ export default {
       this.medicament = this.medicaments.find(
         medicament => medicament.id === +medicamentId
       );
-      this.prixAchatNet=Math.round(this.calculPrixAchatNet()*100)/100
-      this.prixVenteNet=Math.round(this.calculPrixVenteNet()*100)/100
+      this.prixAchatNet=this.calculPrixAchatNet().toFixed(2)
+      this.prixVenteNet=this.calculPrixVenteNet().toFixed(2)
       //this.coefficientMultiplicateur=this.calculCoefficientMultiplicateur()
     },
     calculPrixAchatNet(){
