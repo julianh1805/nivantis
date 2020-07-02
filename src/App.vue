@@ -2,8 +2,7 @@
   <div id="app">
     <div>
       <b-navbar toggleable="lg" type="dark" variant="info">
-        <b-navbar-brand href="/">Nivantis</b-navbar-brand>
-        <b-navbar-toggle @click.stop="drawer = true" target="nav-collapse"></b-navbar-toggle>
+              <router-link to="/">Nivantis</router-link>
         </b-navbar>
 </div>
     <!-- <div id="nav">
@@ -32,6 +31,23 @@ export default {
   text-align: center;
   color: #004660;
   background-color: white;
+}
+
+#app .router-link-active{
+display: inline-block;
+    padding-top: 0.3125rem;
+    padding-bottom: 0.3125rem;
+    margin-right: 1rem;
+    font-size: 1.25rem;
+    line-height: inherit;
+    white-space: nowrap;
+    color:white;
+      transition: 0.4s;
+}
+#app .router-link-active:hover{
+text-decoration: none;
+    color:rgb(241, 241, 241);
+
 }
 
 nav {

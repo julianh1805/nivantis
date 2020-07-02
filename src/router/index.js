@@ -65,9 +65,9 @@ const routes = [
     path: "/nivantis/home",
     name: "List",
     component: () => import("../views/nivantis/List.vue"),
-    meta: {
-      requiresAuth: true,
-    },
+    // meta: {
+    //   requiresAuth: true,
+    // },
   },
 ];
 const router = new VueRouter({
