@@ -159,15 +159,15 @@ export default {
     };
   },
   firebase: {
-    medicaments: db.ref("medicaments"),
-    pharmacies: db.ref("pharmacies"),
+    medicaments: db.database().ref("medicaments"),
+    pharmacies: db.database().ref("pharmacies"),
   },
   methods: {
       navigate() {
       router.go(-1);
     },
     submit() {
-      if (db.ref("commandes").push(this.form)) {
+      if (db.database().ref("commandes").push(this.form)) {
         this.showAlert = true;
       }
     },

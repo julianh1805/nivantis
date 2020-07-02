@@ -2,48 +2,10 @@
   <div id="app">
     <div>
       <b-navbar toggleable="lg" type="dark" variant="info">
-        <b-navbar-brand href="/">Medicaments</b-navbar-brand>
+        <b-navbar-brand href="/">Nivantis</b-navbar-brand>
         <b-navbar-toggle @click.stop="drawer = true" target="nav-collapse"></b-navbar-toggle>
-
-        <b-collapse id="nav-collapse" is-nav></b-collapse>
-      </b-navbar>
-      <v-navigation-drawer absolute permanent right v-show="drawer===true">
-        <template v-slot:prepend>
-          <v-list-item two-line>
-            <v-list-item-avatar>
-              <v-icon large color="green darken-2" @click="drawer=false">mdi-close-box</v-icon>
-            </v-list-item-avatar>
-
-            <v-list-item-content>
-              <v-list-item-title>
-                <h1>Nivantis</h1>
-              </v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
-        </template>
-
-        <v-divider></v-divider>
-
-        <v-list dense>
-          <v-flex>
-            <v-flex>
-              <v-btn
-                depressed
-                small
-                class="btn btn-accent mt-5 pt-2"
-                to="/login/nivantis"
-              >Espace Nivantis</v-btn>
-            </v-flex>
-            <v-flex>
-              <v-btn depressed small class="btn btn-accent mt-5 pt-2" to="/login/dmo">Espace DMO</v-btn>
-            </v-flex>
-            <v-flex>
-              <v-btn depressed small class="btn btn-accent mt-5 pt-2" to="/dmo/home">Espace DMO</v-btn>
-            </v-flex>
-          </v-flex>
-        </v-list>
-      </v-navigation-drawer>
-    </div>
+        </b-navbar>
+</div>
     <!-- <div id="nav">
       <router-link to="/">Home</router-link>|
       <router-link to="/about">About</router-link>

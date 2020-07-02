@@ -72,7 +72,7 @@ export default {
     };
   },
   firebase: {
-    medicaments: db.ref("medicaments"),
+    medicaments: db.database().ref("medicaments"),
   },
   methods: {
     navigate() {
