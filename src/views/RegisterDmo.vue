@@ -1,120 +1,146 @@
 <template>
   <div class="register">
-    <h1>Inscription DMO</h1>
+    <h2 class="mt-4 mb-3">Inscription DMO</h2>
     <form>
-        <div>
-            <label>Pseudo</label>
-            <input type="text" name="name" placeholder="Pseudo" v-model.trim="name"/>
-        </div>
-        <div>
-            <label>Email</label>
-            <input type="mail" name="email" placeholder="Adresse email" v-model.trim="email"/>
-        </div>
-        <div>
-            <label>Mot de passe</label>
-            <input type="password" name="password" placeholder="Mot de passe" v-model="password"/>
-        </div>
-        <div>
-            <label>Confirmer le mot de passe</label>
-            <input type="password" name="password_confirmation" placeholder="Confirmation du mot de passe" v-model="password_confirmation"/>
-        </div>
-
-        <div class="submit button" @click.prevent="register">S'inscrire</div>
-
-        <!--<div class="errors" v-bind:if="hasErrors">
+      <b-form-group id="name" label label-for="name">
+        <b-form-input id="name" v-model.trim="name" type="text" required placeholder="Pseudo"></b-form-input>
+      </b-form-group>
+      <b-form-group id="email" label label-for="email">
+        <b-form-input id="email" v-model.trim="email" type="email" required placeholder="Email"></b-form-input>
+      </b-form-group>
+      <b-form-group id="password" label label-for="password">
+        <b-form-input
+          id="password"
+          v-model="password"
+          type="password"
+          required
+          placeholder="Mot de passe"
+        ></b-form-input>
+      </b-form-group>
+      <b-form-group id="password" label label-for="password">
+        <b-form-input
+          id="password"
+          v-model="password_confirmation"
+          type="password"
+          name="password_confirmation"
+          required
+          placeholder="Confirmation du mot de passe"
+        ></b-form-input>
+      </b-form-group>
+      <button class="btn principal" @click.prevent="register">S'inscrire</button>
+      <!--<div class="errors" v-bind:if="hasErrors">
             <p v:bind-for="error in errors">{{ error }}</p>
-        </div>-->
+      </div>-->
     </form>
   </div>
 </template>
 
 <script>
-import firebase from 'firebase';
+import firebase from "firebase";
 //import md5 from 'md5'
 
 export default {
   name: "RegisterDmo",
-  date () {
-      return{
-          name: '',
-          email: '',
-          password: '',
-          password_confirmation: '',
-          errors: [],
-          usersRef: firebase.database().ref('users')
-      }
+  date() {
+    return {
+      name: "",
+      email: "",
+      password: "",
+      password_confirmation: "",
+      errors: [],
+      usersRef: firebase.database().ref("users")
+    };
   },
   computed: {
-      hasErrors() {
-          return this.errors.length > 0
-      }
+    hasErrors() {
+      return this.errors.length > 0;
+    }
   },
   methods: {
-      register () {
-          this.errors=[]
+    register() {
+      this.errors = [];
 
-          if(this.isFormValid()){
-            firebase.auth().createUserWithEmailAndPassword(this.email,this.password).then( (userCredentials) => {
-                console.log(this.name)
-                if(userCredentials.user){
-                    userCredentials.user.updateProfile({
-                        displayName: this.name
-                    }).then( () => {
-                        //enregistrement de l'utilisateur en BDD
-                        this.saveUserToUserRef(userCredentials).then( () => {
-                            this.$store.dispatch("setUser",userCredentials.user)
-                            this.$router.push('/login/dmo')
-                        })
-                    }, error => {
-                        console.log(error)
-                        this.errors.push(error.message)
-                    })
-                }
-            }).catch(error => {
-                console.log(error)
-                this.errors.push(error.message)
-            })
-          }
-      },
-      saveUserToUserRef(userCredentials) {
-        console.log(this.usersRef)
-        console.log(userCredentials)
-        this.usersRef.child(userCredentials.user.uid).set({
-            name: userCredentials.user.displayName,
-            email: userCredentials.user.displayEmail,
-            password: userCredentials.user.displayPassword
-        })
-      },
-      isEmpty () {
-          if(this.name.length == 0 || this.email.length== 0 || this.password.length == 0 || this.password_confirmation.length == 0){
-              return true;
-          }
-
-          return false;
-      },
-      passwordValid () {
-          if(this.password.length < 6 || this.password_confirmation.length <6){
-              return false
-          }
-
-          if(this.password !== this.password_confirmation){
-              return false
-          }
-
-          return true
-      },
-      isFormValid () {
-          if(this.isEmpty()){
-              this.error.push('Veuillez remplir tous les champs')
-              return false
-          }
-          if(!this.passwordValid()){
-              this.error.push('Mot de passe incorrect')
-              return false
-          }
-
-          return true
+      if (this.isFormValid()) {
+        firebase
+          .auth()
+          .createUserWithEmailAndPassword(this.email, this.password)
+          .then(userCredentials => {
+            console.log(this.name);
+            if (userCredentials.user) {
+              userCredentials.user
+                .updateProfile({
+                  displayName: this.name
+                })
+                .then(
+                  () => {
+                    //enregistrement de l'utilisateur en BDD
+                    this.saveUserToUserRef(userCredentials).then(() => {
+                      this.$store.dispatch("setUser", userCredentials.user);
+                      this.$router.push("/login/dmo");
+                    });
+                  },
+                  error => {
+                    console.log(error);
+                    this.errors.push(error.message);
+                  }
+                );
+            }
+          })
+          .catch(error => {
+            console.log(error);
+            this.errors.push(error.message);
+          });
       }
+    },
+    saveUserToUserRef(userCredentials) {
+      console.log(this.usersRef);
+      console.log(userCredentials);
+      this.usersRef.child(userCredentials.user.uid).set({
+        name: userCredentials.user.displayName,
+        email: userCredentials.user.displayEmail,
+        password: userCredentials.user.displayPassword
+      });
+    },
+    isEmpty() {
+      if (
+        this.name.length == 0 ||
+        this.email.length == 0 ||
+        this.password.length == 0 ||
+        this.password_confirmation.length == 0
+      ) {
+        return true;
+      }
+
+      return false;
+    },
+    passwordValid() {
+      if (this.password.length < 6 || this.password_confirmation.length < 6) {
+        return false;
+      }
+
+      if (this.password !== this.password_confirmation) {
+        return false;
+      }
+
+      return true;
+    },
+    isFormValid() {
+      if (this.isEmpty()) {
+        this.error.push("Veuillez remplir tous les champs");
+        return false;
+      }
+      if (!this.passwordValid()) {
+        this.error.push("Mot de passe incorrect");
+        return false;
+      }
+
+      return true;
+    }
   }
 };
 </script>
+<style scoped>
+form {
+  width: 30% !important;
+}
+</style>
