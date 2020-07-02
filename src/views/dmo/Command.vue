@@ -1,12 +1,12 @@
 <template>
   <div class="command">
     <h1 class="espace href" v-on:click="navigate()">Espace DMO</h1>
-    <h1 class="espace">> Commande de médicaments</h1>
+    <h1 class="espace"> > Commande de médicaments</h1>
     <div></div>
     <div class="add mt-4">
-      <form>
+      <form v-if="!showAlert">
         <h2>Liste des médicaments à commander</h2>
-        <p>
+        <p v-if="form.medicaments.length === 0">
           Vous n'avez pas choisi de médicaments à commander. Selectionnez des
           médicaments pour les ajouter à la liste.
         </p>
@@ -114,22 +114,25 @@
             </b-form-select>
           </b-form-group>
         </div>
-        <b-alert variant="success" :show="showAlert" dismissible
-          >Commande effectuée</b-alert
-        >
         <div class="center mt-4">
           <b-button
             type="button"
             class="principal mr-1"
             v-on:click="submit()"
-            :disabled="form.medicaments === [] || form.pharmacie === null"
+            :disabled="form.medicaments.length === 0 || form.pharmacie === null"
             >Valider la commande</b-button
           >
         </div>
       </form>
-      <b-card class="mt-3" header="Form Data Result">
+      <div v-if="showAlert" class="success">
+        <b-alert variant="success" :show="showAlert" dismissible
+          >Commande effectuée</b-alert
+        >
+        <button class="btn principal" v-on:click="navigate()">Revenir à l'accueil</button>
+      </div>
+      <!-- <b-card class="mt-3" header="Form Data Result">
         <pre class="m-0">{{ form }}</pre>
-      </b-card>
+      </b-card> -->
     </div>
   </div>
 </template>
@@ -260,5 +263,14 @@ p {
 .badge-danger:hover {
   background-color: #b12c39;
   cursor: pointer;
+}
+.success{
+  width: 60%;
+  margin: auto;
+      text-align: center;
+}
+
+.success.alert{
+    text-align: left;
 }
 </style>
