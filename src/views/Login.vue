@@ -17,9 +17,9 @@
 
         <div class="submit button" @click.prevent="loginDmo">Se connecter</div>
 
-        <!--<div class="errors" v-bind:if="hasErrors">
+        <div class="errors" v:bind-if="hasErrors">
             <p v:bind-for="error in errors">{{ error }}</p>
-        </div>-->
+        </div>
     </form>
 
     <form v-else>
@@ -34,9 +34,9 @@
 
         <div class="submit button" @click.prevent="loginNivantis">Se connecter</div>
 
-        <!--<div class="errors" v-bind:if="hasErrors">
+        <div class="errors" v:bind-if="hasErrors">
             <p v:bind-for="error in errors">{{ error }}</p>
-        </div>-->
+        </div>
     </form>
   </div>
 </template>

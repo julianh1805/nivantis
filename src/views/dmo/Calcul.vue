@@ -24,16 +24,20 @@
         <ul v-if="medicament.nom">
           <p class="mb-1">Prix du médicament :</p>
           <li>
-            <b>- Taux de remise :</b>
+            <b>- Taux de remise : </b><!-- (1 - Prix de d’achat net / Prix d’achat brut) x 100 -->
+            <span>{{medicament.tauxRemise * 100}} %</span>
           </li>
           <li>
-            <b>- Prix d’achat net :</b>
+            <b>- Prix d’achat net : </b><!-- Prix d’achat brut x (1 – taux de remise) -->
+            <span>{{this.prixAchatNet}} €</span>
           </li>
           <li>
-            <b>- Prix de vente net :</b>
+            <b>- Prix de vente net : </b><!-- prix d’achat net x coefficient multiplicateur -->
+            <span>{{this.prixVenteNet}} €</span>
           </li>
           <li>
-            <b>- Coefficient multiplicateur :</b>
+            <b>- Coefficient multiplicateur : </b><!-- Prix de vente net / Prix d’achat net -->
+            <span>{{this.coefficientMultiplicateur}}</span>
           </li>
         </ul>
       </div>
@@ -48,12 +52,15 @@ export default {
   data() {
     return {
       medicaments: [
-        { id: 101, nom: "Produit 1", prix: 4 },
-        { id: 135, nom: "Produit 2", prix: 3.99 },
-        { id: 124, nom: "Produit 3", prix: 2.57 }
+        { id: 101, nom: "Produit 1", prix: 4, tauxRemise: 0.025},
+        { id: 135, nom: "Produit 2", prix: 3.99, tauxRemise : 0.02 },
+        { id: 124, nom: "Produit 3", prix: 2.57, tauxRemise : 0.01 }
       ],
       medicament: {},
-      prix: 0
+      prix: 0,
+      prixAchatNet:0,
+      prixVenteNet:0,
+      coefficientMultiplicateur:1.2,
     };
   },
   methods: {
@@ -65,8 +72,23 @@ export default {
       this.medicament = this.medicaments.find(
         medicament => medicament.id === +medicamentId
       );
+      this.prixAchatNet=Math.round(this.calculPrixAchatNet()*100)/100
+      this.prixVenteNet=Math.round(this.calculPrixVenteNet()*100)/100
+      //this.coefficientMultiplicateur=this.calculCoefficientMultiplicateur()
+    },
+    calculPrixAchatNet(){
+      let calcul=this.medicament.prix * (1-this.medicament.tauxRemise)
+      return calcul
+    },
+    calculPrixVenteNet(){
+      let calcul=this.calculPrixAchatNet()*this.coefficientMultiplicateur
+      return calcul
+    },
+    /*calculCoefficientMultiplicateur(){
+      let calcul= this.prixVenteNet/this.prixAchatNet
+      return calcul
+    }*/
     }
-  }
 };
 </script> 
 <style scoped>
