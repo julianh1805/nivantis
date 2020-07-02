@@ -135,6 +135,7 @@
 </template>
 
 <script>
+import router from "../../router/index";
 import { db } from "../../db.js";
 
 export default {
@@ -162,6 +163,9 @@ export default {
     pharmacies: db.ref("pharmacies"),
   },
   methods: {
+      navigate() {
+      router.go(-1);
+    },
     submit() {
       if (db.ref("commandes").push(this.form)) {
         this.showAlert = true;
