@@ -97,7 +97,7 @@ export default {
       return calcul;
     },
     calculPrixVenteNet() {
-      let calcul = +this.prixAchatNet * this.coefficientMultiplicateur;
+      let calcul = this.calculPrixAchatNet() * this.coefficientMultiplicateur;
       return calcul;
     },
     /*calculCoefficientMultiplicateur(){

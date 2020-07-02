@@ -1,32 +1,17 @@
-import Vue from 'vue'
 import Vuex from 'vuex'
-
-Vue.use(Vuex)
-
-const state = {
-  currentUser: null,
-  currentChannel: null,
-}
-
-const mutations = {
-  SET_USER(state,user){
-      state.currentUser = user
-  }
-}
-
-const actions = {
-  setUser({commit},user){
-      commit("SET_USER",user)
-  }
-}
-
-const getters = {
-  currentUser: state => state.currentUser
-}
+import { vuexfireMutations, firebaseAction } from 'vuexfire'
+import { db } from '../db.js'
 
 export default new Vuex.Store({
-  state,
-  mutations,
-  actions,
-  getters
+  state: {
+    medicaments: [],
+  },
+
+  mutations: vuexfireMutations,
+
+  actions: {
+    bindMedic: firebaseAction(({ bindFirebaseRef }) => {
+      return bindFirebaseRef('medicaments', db.ref('medicaments'))
+    }),
+  },
 })
