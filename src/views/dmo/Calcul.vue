@@ -27,7 +27,7 @@
           <li>
             <b>- Taux de remise :</b>
             <!-- (1 - Prix de d’achat net / Prix d’achat brut) x 100 -->
-            <span>{{tauxRemise.toFixed(2)}}%</span>
+            <span>{{tauxRemise}}%</span>
           </li>
           <li>
             <b>- Prix d’achat net :</b>

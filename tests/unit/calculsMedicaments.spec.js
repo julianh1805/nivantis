@@ -11,7 +11,6 @@ let medicaments = [
   ]
 
 it('should emit the good prix achat net',()=>{
-    //given
     const wrapper = shallowMount(Calcul)
 
     let medicament_1=medicaments[0]
@@ -22,35 +21,59 @@ it('should emit the good prix achat net',()=>{
     let test_medicament_2_prix_achat = wrapper.vm.calculPrixAchatNet(medicament_2.prix,medicament_2.remise)
     let test_medicament_3_prix_achat = wrapper.vm.calculPrixAchatNet(medicament_3.prix,medicament_3.remise)
 
-    expect(test_medicament_1_prix_achat).equals(69.30)
-    expect(test_medicament_2_prix_achat).equals(3.99)
-    expect(test_medicament_3_prix_achat).equals(2.57)
+    expect(test_medicament_1_prix_achat).equals("69.30")
+    expect(test_medicament_2_prix_achat).equals("3.99")
+    expect(test_medicament_3_prix_achat).equals("2.57")
 });
 
 it('should emit the good calcul taux de remise',()=>{
-    //given
     const wrapper = shallowMount(Calcul)
 
     let medicament_1=medicaments[0]
     let medicament_2=medicaments[1]
     let medicament_3=medicaments[2]
 
-    let medicament_1_prix_achat = wrapper.vm.calculPrixAchatNet(medicament_1.prix,medicament_1.remise)
-    let medicament_2_prix_achat = wrapper.vm.calculPrixAchatNet(medicament_2.prix,medicament_2.remise)
-    let medicament_3_prix_achat = wrapper.vm.calculPrixAchatNet(medicament_3.prix,medicament_3.remise)
+    let medicament_1_prix_achat_net = wrapper.vm.calculPrixAchatNet(medicament_1.prix,medicament_1.remise)
+    let medicament_2_prix_achat_net = wrapper.vm.calculPrixAchatNet(medicament_2.prix,medicament_2.remise)
+    let medicament_3_prix_achat_net = wrapper.vm.calculPrixAchatNet(medicament_3.prix,medicament_3.remise)
 
 
-    let test_medicament_1_taux_de_remise = wrapper.vm.calculTauxDeRemise(medicament_1_prix_achat,medicament_1.prix)
-    let test_medicament_2_taux_de_remise = wrapper.vm.calculTauxDeRemise(medicament_2_prix_achat,medicament_2.prix)
-    let test_medicament_3_taux_de_remise = wrapper.vm.calculTauxDeRemise(medicament_3_prix_achat,medicament_3.prix)
+    let test_medicament_1_taux_de_remise = wrapper.vm.calculTauxDeRemise(medicament_1_prix_achat_net,medicament_1.prix)
+    let test_medicament_2_taux_de_remise = wrapper.vm.calculTauxDeRemise(medicament_2_prix_achat_net,medicament_2.prix)
+    let test_medicament_3_taux_de_remise = wrapper.vm.calculTauxDeRemise(medicament_3_prix_achat_net,medicament_3.prix)
 
     console.log(test_medicament_1_taux_de_remise)
     console.log(test_medicament_2_taux_de_remise)
     console.log(test_medicament_3_taux_de_remise)
 
-    expect(test_medicament_1_taux_de_remise).equals(10.00)
-    expect(test_medicament_1_taux_de_remise).equals(3.99)
-    expect(test_medicament_1_taux_de_remise).equals(2.57)
+    expect(test_medicament_1_taux_de_remise).equals("10.00")
+    expect(test_medicament_2_taux_de_remise).equals("0.00")
+    expect(test_medicament_3_taux_de_remise).equals("0.00")
+});
+
+it('should emit the good calcul prix de vente net',()=>{
+    const wrapper = shallowMount(Calcul)
+
+    let medicament_1=medicaments[0]
+    let medicament_2=medicaments[1]
+    let medicament_3=medicaments[2]
+
+    let medicament_1_prix_achat_net = wrapper.vm.calculPrixAchatNet(medicament_1.prix,medicament_1.remise)
+    let medicament_2_prix_achat_net = wrapper.vm.calculPrixAchatNet(medicament_2.prix,medicament_2.remise)
+    let medicament_3_prix_achat_net = wrapper.vm.calculPrixAchatNet(medicament_3.prix,medicament_3.remise)
+
+
+    let test_medicament_1_taux_de_remise = wrapper.vm.calculTauxDeRemise(medicament_1_prix_achat_net,medicament_1.prix)
+    let test_medicament_2_taux_de_remise = wrapper.vm.calculTauxDeRemise(medicament_2_prix_achat_net,medicament_2.prix)
+    let test_medicament_3_taux_de_remise = wrapper.vm.calculTauxDeRemise(medicament_3_prix_achat_net,medicament_3.prix)
+
+    console.log(test_medicament_1_taux_de_remise)
+    console.log(test_medicament_2_taux_de_remise)
+    console.log(test_medicament_3_taux_de_remise)
+
+    expect(test_medicament_1_taux_de_remise).equals("10.00")
+    expect(test_medicament_2_taux_de_remise).equals("0.00")
+    expect(test_medicament_3_taux_de_remise).equals("0.00")
 });
 
 //this.calculTauxDeRemise(this.prixAchatNet,this.medicament.prix);
