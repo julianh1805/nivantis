@@ -89,11 +89,10 @@ export default {
     },
     calculTauxDeRemise() {
       let calcul = (1 - +this.prixAchatNet / this.medicament.prix) * 100;
-      console.log(calcul);
       return calcul;
     },
     calculPrixVenteNet() {
-      let calcul = this.calculPrixAchatNet() * this.coefficientMultiplicateur;
+      let calcul = +this.prixAchatNet * this.coefficientMultiplicateur;
       return calcul;
     }
     /*calculCoefficientMultiplicateur(){

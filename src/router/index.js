@@ -33,6 +33,11 @@ const routes = [{
     path: '/dmo/calcul-des-achats-de-la-pharmacie',
     name: 'Calcul',
     component: () => import('../views/dmo/Calcul.vue')
+  },
+  {
+    path: '/dmo/commande-de-medicaments',
+    name: 'Command',
+    component: () => import('../views/dmo/Command.vue')
   }
 ]
 
