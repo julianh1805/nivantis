@@ -79,9 +79,9 @@ export default {
         db.auth()
           .signInWithEmailAndPassword(this.email, this.password)
           .then((user) => {
-            console.log(user.user.uid);
-            this.$store.dispatch("setUser", user); 
-            this.$router.push("/dmo/Home");
+            user.role = "nivantis";
+            this.$store.dispatch("setUser", user);
+            this.$router.push("/nivantis/home");
           })
           .catch((error) => {
             this.errorMessage = error.message;
@@ -91,14 +91,18 @@ export default {
     },
     loginDmo() {
       this.errorMessage = "";
+      this.showAlert = false;
       if (this.isFormValid()) {
         db.auth()
           .signInWithEmailAndPassword(this.email, this.password)
-          .then(() => {
+          .then((user) => {
+            user.role = "dmo";
+            this.$store.dispatch("setUser", user);
             this.$router.push("/dmo/Home");
           })
           .catch((error) => {
             this.errorMessage = error.message;
+            this.showAlert = true;
           });
       }
     },

@@ -14,7 +14,7 @@ const routes = [
     },
   },
   {
-    path: "/login",
+    path: "/login/:espace",
     name: "Login",
     component: () => import("../views/Login.vue"),
     meta: {
@@ -81,7 +81,7 @@ router.beforeEach((to, from, next) => {
     !store.getters.isLogged &&
     to.matched.some((record) => record.meta.requiresAuth)
   ) {
-    next("/login");
+    next("/");
   } else {
     next();
   }

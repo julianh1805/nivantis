@@ -7,6 +7,7 @@ const state = {
   currentUser: {
     userId: null,
     userEmail: null,
+    userRole: null,
     isLogged: false,
   },
 };
@@ -16,6 +17,7 @@ const mutations = {
     state.currentUser = {
       userId: user.user.uid,
       userEmail: user.user.email,
+      userRole: user.role,
       isLogged: true,
     };
   },
