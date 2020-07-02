@@ -1,5 +1,6 @@
 import firebase from "firebase/app";
 import "firebase/database";
+import "firebase/firebase-auth"
 
 export const db = firebase
     .initializeApp({
@@ -10,5 +11,4 @@ export const db = firebase
         storageBucket: "nivantis-22928.appspot.com",
         messagingSenderId: "832019051108",
         appId: "1:832019051108:web:b3a8856ff1816314d8e571",
-    })
-    .database();
+    });

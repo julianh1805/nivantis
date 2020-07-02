@@ -61,7 +61,7 @@
 </template>
 
 <script>
-import { db } from "../db.js";
+import { db }  from "../db.js";
 export default {
   data() {
     return {
