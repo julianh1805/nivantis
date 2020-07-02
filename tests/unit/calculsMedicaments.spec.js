@@ -15,5 +15,9 @@ it('should emit an event',()=>{
     select_medicaments.at(1).trigger('change')
 
     //then
-    expect(spy).toHaveBeenCalledTimes(1);
+    console.log(spy)
+    console.log(spy.mockReturnThis())
+    console.log(spy.getMockImplementation())
+    console.log(spy.getMockName())
+    expect(spy).equals('')
 });
