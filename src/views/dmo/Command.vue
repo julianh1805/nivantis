@@ -114,11 +114,14 @@
             </b-form-select>
           </b-form-group>
         </div>
+        <b-alert variant="success" :show="showAlert" dismissible
+          >Commande effectuée</b-alert
+        >
         <div class="center mt-4">
           <b-button
             type="button"
             class="principal mr-1"
-            v-on:click="navigate()"
+            v-on:click="submit()"
             :disabled="form.medicaments === [] || form.pharmacie === null"
             >Valider la commande</b-button
           >
@@ -132,12 +135,12 @@
 </template>
 
 <script>
-import router from "../../router/index";
 import { db } from "../../db.js";
 
 export default {
   data() {
     return {
+      showAlert: false,
       form: {
         medicaments: [],
         pharmacie: null,
@@ -159,8 +162,10 @@ export default {
     pharmacies: db.ref("pharmacies"),
   },
   methods: {
-    navigate() {
-      router.go(-1);
+    submit() {
+      if (db.ref("commandes").push(this.form)) {
+        this.showAlert = true;
+      }
     },
     onChangeProduct(event) {
       let medicamentId = event.target.value;
