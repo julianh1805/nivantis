@@ -36,7 +36,7 @@ const routes = [
     meta: {
       requiresAuth: true,
     },
-  }
+  },
   {
     path: "/dmo/ajouter-des-données-sur-une-officine",
     name: "Add",
@@ -62,14 +62,14 @@ const routes = [
     },
   },
   {
-    path: '/nivantis/home',
-    name: 'List',
-    component: () => import('../views/nivantis/List.vue'),
-      meta: {
+    path: "/nivantis/home",
+    name: "List",
+    component: () => import("../views/nivantis/List.vue"),
+    meta: {
       requiresAuth: true,
     },
-  }
-]
+  },
+];
 const router = new VueRouter({
   mode: "history",
   base: process.env.BASE_URL,
@@ -77,7 +77,10 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  if (!store.getters.isLogged && to.matched.some(record => record.meta.requiresAuth)) {
+  if (
+    !store.getters.isLogged &&
+    to.matched.some((record) => record.meta.requiresAuth)
+  ) {
     next("/login");
   } else {
     next();
