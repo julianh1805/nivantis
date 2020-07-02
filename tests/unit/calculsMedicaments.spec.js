@@ -11,6 +11,8 @@ it('should emit an event',()=>{
     const select_medicaments = wrapper.findAll('#select option')
     const spy = jest.fn()
 
+    console.log(wrapper.vm.calculPrixAchatNet(1,2))
+
     //when
     select_medicaments.at(1).trigger('change')
 
