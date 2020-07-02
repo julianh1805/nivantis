@@ -1,55 +1,89 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
+import Vue from "vue";
+import VueRouter from "vue-router";
+import store from "../store/index";
 
-Vue.use(VueRouter)
+Vue.use(VueRouter);
 
-const routes = [{
-    path: '/',
-    name: '',
-    component: Home
+const routes = [
+  {
+    path: "/",
+    name: "",
+    component: () => import("../views/Home.vue"),
+    meta: {
+      requiresAuth: false,
+    },
   },
   {
-    path: '/login/:espace', //":espace = variable"
-    name: 'Login',
-    component: () => import('../views/Login.vue')
+    path: "/login",
+    name: "Login",
+    component: () => import("../views/Login.vue"),
+    meta: {
+      requiresAuth: false,
+    },
   },
   {
-    path: '/register/dmo',
-    name: 'RegisterDmo',
-    component: () => import('../views/RegisterDmo.vue')
+    path: "/register/dmo",
+    name: "RegisterDmo",
+    component: () => import("../views/RegisterDmo.vue"),
+    meta: {
+      requiresAuth: false,
+    },
   },
   {
-    path: '/dmo/home',
-    name: 'Home',
-    component: () => import('../views/dmo/Home.vue')
+    path: "/dmo/Home",
+    name: "Home",
+    component: () => import("../views/dmo/Home.vue"),
+    meta: {
+      requiresAuth: true,
+    },
   },
   {
-    path: '/dmo/ajouter-des-données-sur-une-officine',
-    name: 'Add',
-    component: () => import('../views/dmo/Add.vue')
+    path: "/dmo/ajouter-des-données-sur-une-officine",
+    name: "Add",
+    component: () => import("../views/dmo/Add.vue"),
+    meta: {
+      requiresAuth: true,
+    },
   },
   {
-    path: '/dmo/calcul-des-achats-de-la-pharmacie',
-    name: 'Calcul',
-    component: () => import('../views/dmo/Calcul.vue')
+    path: "/dmo/calcul-des-achats-de-la-pharmacie",
+    name: "Calcul",
+    component: () => import("../views/dmo/Calcul.vue"),
+    meta: {
+      requiresAuth: true,
+    },
   },
   {
-    path: '/dmo/commande-de-medicaments',
-    name: 'Command',
-    component: () => import('../views/dmo/Command.vue')
+    path: "/dmo/commande-de-medicaments",
+    name: "Command",
+    component: () => import("../views/dmo/Command.vue"),
+    meta: {
+      requiresAuth: true,
+    },
   },
   {
-    path: '/nivantis/home',
-    name: 'List',
-    component: () => import('../views/nivantis/List.vue')
-  }
-]
-
+    path: "/nivantis/home",
+    name: "List",
+    component: () => import("../views/nivantis/List.vue"),
+    meta: {
+      requiresAuth: true,
+    },
+  },
+];
 const router = new VueRouter({
-  mode: 'history',
+  mode: "history",
   base: process.env.BASE_URL,
-  routes
-})
+  routes,
+});
 
-export default router
+router.beforeEach((to, from, next) => {
+  if (
+    !store.getters.isLogged &&
+    to.matched.some((record) => record.meta.requiresAuth)
+  ) {
+    next("/login");
+  } else {
+    next();
+  }
+});
+export default router;

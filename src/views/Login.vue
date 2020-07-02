@@ -1,9 +1,18 @@
 <template>
   <div class="login">
-    <form class="form" v-if="$route.params.espace==='dmo'">
+    <form class="form" v-if="$route.params.espace === 'dmo'">
       <h2 class="mt-4 mb-3">Connexion DMO</h2>
+      <b-alert variant="error" :show="showAlert" dismissible>{{
+        this.errorMessage
+      }}</b-alert>
       <b-form-group id="email" label label-for="email">
-        <b-form-input id="email" v-model="email" type="email" required placeholder="Email"></b-form-input>
+        <b-form-input
+          id="email"
+          v-model="email"
+          type="email"
+          required
+          placeholder="Email"
+        ></b-form-input>
       </b-form-group>
       <b-form-group id="password" label label-for="password">
         <b-form-input
@@ -14,15 +23,26 @@
           placeholder="Mot de passe"
         ></b-form-input>
       </b-form-group>
-      <button class="btn principal mt-2" @click.prevent="loginDmo">Se connecter</button>
+      <button class="btn principal mt-2" @click.prevent="loginDmo">
+        Se connecter
+      </button>
       <!--<div class="errors" v-bind:if="hasErrors">
             <p v:bind-for="error in errors">{{ error }}</p>
       </div>-->
     </form>
     <form v-else>
       <h2 class="mt-4 mb-3">Connexion Nivantis</h2>
+      <b-alert variant="error" :show="showAlert" dismissible>{{
+        this.errorMessage
+      }}</b-alert>
       <b-form-group id="email" label label-for="email">
-        <b-form-input id="email" v-model="email" type="email" required placeholder="Email"></b-form-input>
+        <b-form-input
+          id="email"
+          v-model="email"
+          type="email"
+          required
+          placeholder="Email"
+        ></b-form-input>
       </b-form-group>
       <b-form-group id="password" label label-for="password">
         <b-form-input
@@ -33,60 +53,52 @@
           placeholder="Mot de passe"
         ></b-form-input>
       </b-form-group>
-      <button class="btn principal mt-2" @click.prevent="loginNivantis">Se connecter</button>
-        <div class="errors" v:bind-if="hasErrors">
-            <p v:bind-for="error in errors">{{ error }}</p>
-        </div>
+      <button class="btn principal mt-2" @click.prevent="loginNivantis">
+        Se connecter
+      </button>
     </form>
   </div>
 </template>
 
 <script>
-import firebase from "firebase";
+import { db } from "../db.js";
 export default {
-  name: "Login",
-  date() {
+  data() {
     return {
+      showAlert: false,
       email: "",
       password: "",
-      errors: []
+      errorMessage: "",
     };
-  },
-  computed: {
-    hasErrors() {
-      return this.errors.length > 0;
-    }
   },
   methods: {
     loginNivantis() {
-      console.log("login");
-      this.errors = [];
+      this.errorMessage = "";
+      this.showAlert = false;
       if (this.isFormValid()) {
-        firebase
-          .auth()
+        db.auth()
           .signInWithEmailAndPassword(this.email, this.password)
-          .then(user => {
-            this.$store.dispatch("setUser", user);
+          .then((user) => {
+            console.log(user.user.uid);
+            this.$store.dispatch("setUser", user); 
             this.$router.push("/dmo/Home");
           })
-          .catch(error => {
-            this.errors.push(error.message);
+          .catch((error) => {
+            this.errorMessage = error.message;
+            this.showAlert = true;
           });
       }
     },
     loginDmo() {
-      console.log("login");
-      this.errors = [];
+      this.errorMessage = "";
       if (this.isFormValid()) {
-        firebase
-          .auth()
+        db.auth()
           .signInWithEmailAndPassword(this.email, this.password)
-          .then(user => {
-            this.$store.dispatch("setUser", user);
+          .then(() => {
             this.$router.push("/dmo/Home");
           })
-          .catch(error => {
-            this.errors.push(error.message);
+          .catch((error) => {
+            this.errorMessage = error.message;
           });
       }
     },
@@ -96,8 +108,8 @@ export default {
       }
 
       return false;
-    }
-  }
+    },
+  },
 };
 </script>
 <style scoped>

@@ -1,35 +1,45 @@
 <template>
   <div class="command">
     <h1 class="espace href" v-on:click="navigate()">Espace DMO</h1>
-    <h1 class="espace">> Commande de médicaments</h1>
+    <h1 class="espace"> > Commande de médicaments</h1>
     <div></div>
     <div class="add mt-4">
-      <form>
+      <form v-if="!showAlert">
         <h2>Liste des médicaments à commander</h2>
-        <p>Vous n'avez pas choisi de médicaments à commander. Selectionnez des médicaments pour les ajouter à la liste.</p>
+        <p v-if="form.medicaments.length === 0">
+          Vous n'avez pas choisi de médicaments à commander. Selectionnez des
+          médicaments pour les ajouter à la liste.
+        </p>
         <b-list-group class="mb-3">
           <b-list-group-item
             v-for="medicament in form.medicaments"
             :key="medicament.id"
             class="d-flex justify-content-between align-items-center"
           >
-            {{medicament.nom}}
+            {{ medicament.nom }}
             <div>
-              <b-badge variant="primary" pill>{{medicament.quantite}}</b-badge>
+              <b-badge variant="primary" pill>{{
+                medicament.quantite
+              }}</b-badge>
               <b-badge
                 variant="danger"
                 class="ml-1"
                 pill
-                @mouseover="hover='Supprimer'"
-                @mouseleave="hover='X'"
+                @mouseover="hover = 'Supprimer'"
+                @mouseleave="hover = 'X'"
                 v-on:click="unstage(medicament)"
-              >{{hover}}</b-badge>
+                >{{ hover }}</b-badge
+              >
             </div>
           </b-list-group-item>
         </b-list-group>
         <div class="row">
           <div class="col-10">
-            <b-form-group id="medicament" label="Sélectionnez un médicament" label-for="medicament">
+            <b-form-group
+              id="medicament"
+              label="Sélectionnez un médicament"
+              label-for="medicament"
+            >
               <select
                 class="form-control"
                 id="medicament"
@@ -41,7 +51,8 @@
                   v-for="medicament in medicaments"
                   v-bind:value="medicament.id"
                   :key="medicament.id"
-                >{{medicament.nom}}</option>
+                  >{{ medicament.nom }}</option
+                >
               </select>
             </b-form-group>
           </div>
@@ -58,7 +69,8 @@
                   v-for="quantite in quantites"
                   v-bind:value="quantite"
                   :key="quantite"
-                >{{quantite}}</option>
+                  >{{ quantite }}</option
+                >
               </select>
             </b-form-group>
           </div>
@@ -67,82 +79,105 @@
               type="button"
               class="principal mr-1"
               v-on:click="ajouter()"
-              :disabled="medicament.nom === '' && medicament.quantite >= 1 || medicament.quantite === null"
-            >Ajouter</b-button>
-            <b-button type="button" class="secondary ml-1" v-on:click="navigate()">Annuler</b-button>
+              :disabled="
+                (medicament.nom === '' && medicament.quantite >= 1) ||
+                  medicament.quantite === null
+              "
+              >Ajouter</b-button
+            >
+            <b-button
+              type="button"
+              class="secondary ml-1"
+              v-on:click="navigate()"
+              >Annuler</b-button
+            >
           </div>
         </div>
         <div class="pharmacie mt-4">
-          <b-form-group id="pharmacie" label="Selectionnez votre pharmacie:" label-for="pharmacie">
+          <b-form-group
+            id="pharmacie"
+            label="Selectionnez votre pharmacie:"
+            label-for="pharmacie"
+          >
             <b-form-select
               id="pharmacie"
-              placeholder="fajejea"
+              placeholder="Pharmacie"
               v-model="form.pharmacie"
-              :options="pharmacies"
               required
-            ></b-form-select>
+            >
+              <b-form-select-option
+                v-for="pharmacie in pharmacies"
+                :key="pharmacie.id"
+                :value="pharmacie.id"
+                >{{ pharmacie.name }}</b-form-select-option
+              >
+            </b-form-select>
           </b-form-group>
         </div>
         <div class="center mt-4">
           <b-button
             type="button"
             class="principal mr-1"
-            v-on:click="navigate()"
-            :disabled="form.medicaments === [] || form.pharmacie === null"
-          >Valider la commande</b-button>
+            v-on:click="submit()"
+            :disabled="form.medicaments.length === 0 || form.pharmacie === null"
+            >Valider la commande</b-button
+          >
         </div>
       </form>
-      <b-card class="mt-3" header="Form Data Result">
+      <div v-if="showAlert" class="success">
+        <b-alert variant="success" :show="showAlert" dismissible
+          >Commande effectuée</b-alert
+        >
+        <button class="btn principal" v-on:click="navigate()">Revenir à l'accueil</button>
+      </div>
+      <!-- <b-card class="mt-3" header="Form Data Result">
         <pre class="m-0">{{ form }}</pre>
-      </b-card>
+      </b-card> -->
     </div>
   </div>
 </template>
 
 <script>
 import router from "../../router/index";
+import { db } from "../../db.js";
 
 export default {
   data() {
     return {
+      showAlert: false,
       form: {
         medicaments: [],
-        pharmacie: null
+        pharmacie: null,
       },
-      medicaments: [
-        { id: 101, nom: "Produit 1", quantite: 20 },
-        { id: 135, nom: "Produit 2", quantite: 8 },
-        { id: 124, nom: "Produit 3", quantite: 77 }
-      ],
+      medicaments: [],
       medicamentsDeleted: [],
       medicament: {
         id: "",
         nom: "",
-        quantite: null
+        quantite: null,
       },
-      pharmacies: [
-        { value: null, text: "Choisir une pharmacie" },
-        {
-          value: "Pharmacie Jules Vernes, Nantes (44300)",
-          text: "Pharmacie Jules Vernes, Nantes (44300)"
-        },
-        {
-          value: "Pharmacie Jules Vernes, Nantes (44300)",
-          text: "Pharmacie Jules Vernes, Nantes (44300)"
-        }
-      ],
+      pharmacies: [],
       quantites: [],
-      hover: "X"
+      hover: "X",
     };
   },
+  firebase: {
+    medicaments: db.database().ref("medicaments"),
+    pharmacies: db.database().ref("pharmacies"),
+  },
   methods: {
-    navigate() {
+      navigate() {
       router.go(-1);
+    },
+    submit() {
+      if (db.database().ref("commandes").push(this.form)) {
+        this.showAlert = true;
+      }
     },
     onChangeProduct(event) {
       let medicamentId = event.target.value;
       let medicament = this.medicaments.find(
-        medicament => medicament.id === +medicamentId
+        (medicament) => medicament.id === +medicamentId
       );
       this.medicament.quantite = null;
       this.quantites = [];
@@ -158,7 +193,7 @@ export default {
     ajouter() {
       this.form.medicaments.push(this.medicament);
       let medicament = this.medicaments.find(
-        medicament => medicament.id === +this.medicament.id
+        (medicament) => medicament.id === +this.medicament.id
       );
       this.medicamentsDeleted.push(medicament);
       let index = this.medicaments.indexOf(medicament);
@@ -167,12 +202,12 @@ export default {
       this.medicament = {
         id: "",
         nom: "",
-        quantite: null
+        quantite: null,
       };
     },
     unstage(medicamentt) {
       let medicamentAdd = this.medicamentsDeleted.find(
-        medicament => (medicament.id = +medicamentt.id)
+        (medicament) => (medicament.id = +medicamentt.id)
       );
       let index1 = this.form.medicaments.indexOf(medicamentt);
       this.form.medicaments.splice(index1, 1);
@@ -188,8 +223,8 @@ export default {
         }
         return 0;
       });
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -228,5 +263,14 @@ p {
 .badge-danger:hover {
   background-color: #b12c39;
   cursor: pointer;
+}
+.success{
+  width: 60%;
+  margin: auto;
+      text-align: center;
+}
+
+.success.alert{
+    text-align: left;
 }
 </style>
