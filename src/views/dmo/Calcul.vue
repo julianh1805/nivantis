@@ -1,7 +1,7 @@
 <template>
   <div class="calcul">
     <h1 class="espace href" v-on:click="navigate()">Espace DMO</h1>
-    <h1 class="espace">> Calcul des achats de la pharmacie</h1>
+    <h1 class="espace"> > Calcul des achats de la pharmacie</h1>
     <b-form class="mt-4">
       <b-form-group
         id="medicament"
@@ -30,22 +30,22 @@
         <ul v-if="medicament.nom">
           <p class="mb-1">Calculs commerciaux du produit :</p>
           <li>
-            <b>- Taux de remise :</b>
+            <b>- Taux de remise : </b>
             <!-- (1 - Prix de d’achat net / Prix d’achat brut) x 100 -->
             <span>{{ tauxRemise.toFixed(2) }}%</span>
           </li>
           <li>
-            <b>- Prix d’achat net :</b>
+            <b>- Prix d’achat net : </b>
             <!-- Prix d’achat brut x (1 – taux de remise) -->
             <span>{{ prixAchatNet }}€</span>
           </li>
           <li>
-            <b>- Prix de vente net :</b>
+            <b>- Prix de vente net : </b>
             <!-- prix d’achat net x coefficient multiplicateur -->
             <span>{{ prixVenteNet }}€</span>
           </li>
           <li>
-            <b>- Coefficient multiplicateur :</b>
+            <b>- Coefficient multiplicateur : </b>
             <!-- Prix de vente net / Prix d’achat net -->
             <span>{{ coefficientMultiplicateur.toFixed(2) }}</span>
           </li>
