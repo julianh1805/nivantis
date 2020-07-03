@@ -149,7 +149,7 @@ export default {
       this.getNow();
     },
     submit() {
-      this.form.demandeur = "";
+      this.form.demandeur = "EZF24fezf32";
       this.getNow();
       if (
         db
@@ -214,14 +214,14 @@ export default {
     getNow: function() {
       const today = new Date();
       const date =
-        today.getFullYear() +
+        today.getDate() +
         "-" +
         (today.getMonth() + 1) +
         "-" +
-        today.getDate();
+        today.getFullYear();
       const time =
         today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-      const dateTime = date + " " + time;
+      const dateTime = date + "à" + time;
       this.form.date = dateTime;
     }
   }

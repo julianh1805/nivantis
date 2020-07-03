@@ -9,9 +9,8 @@
         class="d-flex justify-content-between align-items-center"
       >
         <p>Demandeur : {{ commande.demandeur }}</p>
-        <p>- Produits : {{commande.medicaments.length}}</p>
-        <p>Commande passée le {{Date.now()}}</p>
-        <p />
+        <p>Produits : {{commande.medicaments.length}}</p>
+        <p>Le {{commande.date}}</p>
       </b-list-group-item>
     </b-list-group>
   </div>
