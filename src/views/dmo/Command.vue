@@ -221,7 +221,7 @@ export default {
         today.getFullYear();
       const time =
         today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-      const dateTime = date + "à" + time;
+      const dateTime = date + " à " + time;
       this.form.date = dateTime;
     }
   }
