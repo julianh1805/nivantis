@@ -11,7 +11,7 @@
     "electron:serve": "vue-cli-service electron:serve",
     "postinstall": "electron-builder install-app-deps",
     "postuninstall": "electron-builder install-app-deps",
-    "start": "npm run serve"
+    "start": "electron-packager ."
   },
   "main": "background.js",
   "dependencies": {
@@ -19,6 +19,7 @@
     "bootstrap": "^4.5.0",
     "bootstrap-vue": "^2.15.0",
     "core-js": "^3.6.5",
+    "electron-packager": "^15.0.0",
     "firebase": "^7.15.5",
     "jquery": "^3.5.1",
     "md5": "^2.2.1",
