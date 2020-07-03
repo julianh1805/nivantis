@@ -3,16 +3,16 @@
     <h1 class="espace href" v-on:click="navigate()">Espace Nivantis</h1>
     <h1 class="espace">> Détail d'une commande</h1>
     <div class="commandes">
-      <h2 class="my-3">Détails de la commande</h2>
-      <p>Commande de {{commandes[7].demandeur}} :</p>
+      <h2 class="my-4">Détails de la commande</h2>
+      <p>Commande de {{commande.demandeur}} :</p>
       <ul>
         <p class="my-3 blue">Liste des produits :</p>
         <li
-          v-for="medicament in commandes[7].medicaments"
+          v-for="medicament in commande.medicaments"
           v-bind:key="medicament"
-        >- {{ medicament.nom }}</li>
+        >- {{ medicament.nom }} ({{medicament.quantite}} unités)</li>
       </ul>
-      <p>Commande passée le {{commandes[7].date}}</p>
+      <p>Commande passée le {{commande.date}}</p>
     </div>
   </div>
 </template>
@@ -24,16 +24,20 @@ import router from "../../router/index";
 export default {
   data() {
     return {
-      commandes: []
+      commande: []
     };
   },
   firebase: {
-    commandes: db.database().ref("commandes")
+    commande: db.database().ref("commandes")
   },
   methods: {
     navigate() {
       router.go(-1);
     }
+  },
+  beforeMount() {
+    let index = localStorage.getItem("commandeId");
+    this.commande = this.commande[index];
   }
 };
 </script>

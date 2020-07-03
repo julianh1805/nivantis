@@ -92,13 +92,16 @@
               >{{ pharmacie.name }}</b-form-select-option>
             </b-form-select>
           </b-form-group>
+          <b-form-group id="name" label label-for="Votre nom :">
+            <b-form-input id="name" v-model.trim="form.demandeur" type="name"></b-form-input>
+          </b-form-group>
         </div>
         <div class="center mt-4">
           <b-button
             type="button"
             class="principal mr-1"
             v-on:click="submit()"
-            :disabled="form.medicaments.length === 0 || form.pharmacie === null"
+            :disabled="form.medicaments.length === 0 || form.pharmacie === null || form.demandeur === ''"
           >Valider la commande</b-button>
         </div>
       </form>
@@ -146,10 +149,8 @@ export default {
   methods: {
     navigate() {
       router.go(-1);
-      this.getNow();
     },
     submit() {
-      this.form.demandeur = "EZF24fezf32";
       this.getNow();
       if (
         db
@@ -215,9 +216,9 @@ export default {
       const today = new Date();
       const date =
         today.getDate() +
-        "-" +
+        "/" +
         (today.getMonth() + 1) +
-        "-" +
+        "/" +
         today.getFullYear();
       const time =
         today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();

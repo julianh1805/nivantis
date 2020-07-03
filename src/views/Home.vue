@@ -1,34 +1,25 @@
 <template>
   <div class="home" v-if="!$store.getters.isLogged">
-    <h2 class="mt-4 mb-3">NIVANTIS</h2>
+    <h2 class="mt-4 mb-3">Nivantis</h2>
     <v-flex>
       <v-btn
         class="btn principal mr-2 pt-2"
         v-on:click="navigate('login/nivantis')"
-        >Connexion Nivantis</v-btn
-      >
-      <v-btn class="btn principal mr-2 pt-2" v-on:click="navigate('login/dmo')"
-        >Connexion DMO</v-btn
-      >
-      <v-btn
-        class="btn principal mr-2 pt-2"
-        v-on:click="navigate('register/dmo')"
-        >Inscription DMO</v-btn
-      >
+      >Connexion Nivantis</v-btn>
+      <v-btn class="btn principal mr-2 pt-2" v-on:click="navigate('login/dmo')">Connexion DMO</v-btn>
+      <v-btn class="btn principal mr-2 pt-2" v-on:click="navigate('register/dmo')">Inscription DMO</v-btn>
     </v-flex>
   </div>
-  <div class="home" v-else-if="$store.getters.getCurrentRole === 'dmo'">
-    <h1>Panel DMO</h1>
+  <div class="home mt-4" v-else-if="$store.getters.getCurrentRole === 'dmo'">
+    <h2 class="mb-3">Panel DMO</h2>
     <v-flex>
       <v-btn class="btn principal mr-2 pt-2" to="/dmo/home">Espace DMO</v-btn>
     </v-flex>
   </div>
-  <div class="home" v-else-if="$store.getters.getCurrentRole === 'nivantis'">
+  <div class="home mt-4" v-else-if="$store.getters.getCurrentRole === 'nivantis'">
     <v-flex>
-    <h1>Panel Nivantis</h1>
-      <v-btn class="btn principal mr-2 pt-2" to="/nivantis/home">
-        Espace Nivantis
-      </v-btn>
+      <h2 class="mb-3">Panel Nivantis</h2>
+      <v-btn class="btn principal mr-2 pt-2" to="/nivantis/home">Espace Nivantis</v-btn>
     </v-flex>
   </div>
 </template>
@@ -42,7 +33,7 @@ export default {
   methods: {
     navigate(link) {
       router.push({ path: link });
-    },
-  },
+    }
+  }
 };
 </script>

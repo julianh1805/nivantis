@@ -4,9 +4,9 @@
     <b-list-group class="mb-3">
       <h2 class="my-3">Numéro de commandes : {{commandes.length}}</h2>
       <b-list-group-item
-        v-for="commande in commandes"
+        v-for="(commande, index) in commandes"
         :key="commande"
-        v-on:click="details()"
+        v-on:click="details(index)"
         class="d-flex justify-content-between align-items-center"
       >
         <p>Demandeur : {{ commande.demandeur }}</p>
@@ -31,7 +31,8 @@ export default {
     commandes: db.database().ref("commandes")
   },
   methods: {
-    details() {
+    details(index) {
+      localStorage.setItem("commandeId", index);
       router.push({ path: "details" });
     }
   }
