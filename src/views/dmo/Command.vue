@@ -1,7 +1,7 @@
 <template>
   <div class="command">
     <h1 class="espace href" v-on:click="navigate()">Espace DMO</h1>
-    <h1 class="espace"> > Commande de médicaments</h1>
+    <h1 class="espace">> Commande de médicaments</h1>
     <div></div>
     <div class="add mt-4">
       <form v-if="!showAlert">
@@ -18,9 +18,11 @@
           >
             {{ medicament.nom }}
             <div>
-              <b-badge variant="primary" pill>{{
+              <b-badge variant="primary" pill>
+                {{
                 medicament.quantite
-              }}</b-badge>
+                }}
+              </b-badge>
               <b-badge
                 variant="danger"
                 class="ml-1"
@@ -28,18 +30,13 @@
                 @mouseover="hover = 'Supprimer'"
                 @mouseleave="hover = 'X'"
                 v-on:click="unstage(medicament)"
-                >{{ hover }}</b-badge
-              >
+              >{{ hover }}</b-badge>
             </div>
           </b-list-group-item>
         </b-list-group>
         <div class="row">
           <div class="col-10">
-            <b-form-group
-              id="medicament"
-              label="Sélectionnez un médicament"
-              label-for="medicament"
-            >
+            <b-form-group id="medicament" label="Sélectionnez un médicament" label-for="medicament">
               <select
                 class="form-control"
                 id="medicament"
@@ -51,8 +48,7 @@
                   v-for="medicament in medicaments"
                   v-bind:value="medicament.id"
                   :key="medicament.id"
-                  >{{ medicament.nom }}</option
-                >
+                >{{ medicament.nom }}</option>
               </select>
             </b-form-group>
           </div>
@@ -69,8 +65,7 @@
                   v-for="quantite in quantites"
                   v-bind:value="quantite"
                   :key="quantite"
-                  >{{ quantite }}</option
-                >
+                >{{ quantite }}</option>
               </select>
             </b-form-group>
           </div>
@@ -83,34 +78,18 @@
                 (medicament.nom === '' && medicament.quantite >= 1) ||
                   medicament.quantite === null
               "
-              >Ajouter</b-button
-            >
-            <b-button
-              type="button"
-              class="secondary ml-1"
-              v-on:click="navigate()"
-              >Annuler</b-button
-            >
+            >Ajouter</b-button>
+            <b-button type="button" class="secondary ml-1" v-on:click="navigate()">Annuler</b-button>
           </div>
         </div>
         <div class="pharmacie mt-4">
-          <b-form-group
-            id="pharmacie"
-            label="Selectionnez votre pharmacie:"
-            label-for="pharmacie"
-          >
-            <b-form-select
-              id="pharmacie"
-              placeholder="Pharmacie"
-              v-model="form.pharmacie"
-              required
-            >
+          <b-form-group id="pharmacie" label="Selectionnez votre pharmacie:" label-for="pharmacie">
+            <b-form-select id="pharmacie" placeholder="Pharmacie" v-model="form.pharmacie" required>
               <b-form-select-option
                 v-for="pharmacie in pharmacies"
                 :key="pharmacie.id"
                 :value="pharmacie.id"
-                >{{ pharmacie.name }}</b-form-select-option
-              >
+              >{{ pharmacie.name }}</b-form-select-option>
             </b-form-select>
           </b-form-group>
         </div>
@@ -120,19 +99,16 @@
             class="principal mr-1"
             v-on:click="submit()"
             :disabled="form.medicaments.length === 0 || form.pharmacie === null"
-            >Valider la commande</b-button
-          >
+          >Valider la commande</b-button>
         </div>
       </form>
       <div v-if="showAlert" class="success">
-        <b-alert variant="success" :show="showAlert" dismissible
-          >Commande effectuée</b-alert
-        >
+        <b-alert variant="success" :show="showAlert" dismissible>Commande effectuée</b-alert>
         <button class="btn principal" v-on:click="navigate()">Revenir à l'accueil</button>
       </div>
       <!-- <b-card class="mt-3" header="Form Data Result">
         <pre class="m-0">{{ form }}</pre>
-      </b-card> -->
+      </b-card>-->
     </div>
   </div>
 </template>
@@ -148,36 +124,46 @@ export default {
       form: {
         medicaments: [],
         pharmacie: null,
+        demandeur: "",
+        date: null
       },
       medicaments: [],
       medicamentsDeleted: [],
       medicament: {
         id: "",
         nom: "",
-        quantite: null,
+        quantite: null
       },
       pharmacies: [],
       quantites: [],
-      hover: "X",
+      hover: "X"
     };
   },
   firebase: {
     medicaments: db.database().ref("medicaments"),
-    pharmacies: db.database().ref("pharmacies"),
+    pharmacies: db.database().ref("pharmacies")
   },
   methods: {
-      navigate() {
+    navigate() {
       router.go(-1);
+      this.getNow();
     },
     submit() {
-      if (db.database().ref("commandes").push(this.form)) {
+      this.form.demandeur = "";
+      this.getNow();
+      if (
+        db
+          .database()
+          .ref("commandes")
+          .push(this.form)
+      ) {
         this.showAlert = true;
       }
     },
     onChangeProduct(event) {
       let medicamentId = event.target.value;
       let medicament = this.medicaments.find(
-        (medicament) => medicament.id === +medicamentId
+        medicament => medicament.id === +medicamentId
       );
       this.medicament.quantite = null;
       this.quantites = [];
@@ -193,7 +179,7 @@ export default {
     ajouter() {
       this.form.medicaments.push(this.medicament);
       let medicament = this.medicaments.find(
-        (medicament) => medicament.id === +this.medicament.id
+        medicament => medicament.id === +this.medicament.id
       );
       this.medicamentsDeleted.push(medicament);
       let index = this.medicaments.indexOf(medicament);
@@ -202,12 +188,13 @@ export default {
       this.medicament = {
         id: "",
         nom: "",
-        quantite: null,
+        quantite: null
       };
+      this.getNow();
     },
     unstage(medicamentt) {
       let medicamentAdd = this.medicamentsDeleted.find(
-        (medicament) => (medicament.id = +medicamentt.id)
+        medicament => (medicament.id = +medicamentt.id)
       );
       let index1 = this.form.medicaments.indexOf(medicamentt);
       this.form.medicaments.splice(index1, 1);
@@ -224,7 +211,20 @@ export default {
         return 0;
       });
     },
-  },
+    getNow: function() {
+      const today = new Date();
+      const date =
+        today.getFullYear() +
+        "-" +
+        (today.getMonth() + 1) +
+        "-" +
+        today.getDate();
+      const time =
+        today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+      const dateTime = date + " " + time;
+      this.form.date = dateTime;
+    }
+  }
 };
 </script>
 
@@ -264,13 +264,13 @@ p {
   background-color: #b12c39;
   cursor: pointer;
 }
-.success{
+.success {
   width: 60%;
   margin: auto;
-      text-align: center;
+  text-align: center;
 }
 
-.success.alert{
-    text-align: left;
+.success.alert {
+  text-align: left;
 }
 </style>

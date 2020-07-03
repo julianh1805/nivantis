@@ -4,8 +4,7 @@ import store from "../store/index";
 
 Vue.use(VueRouter);
 
-const routes = [
-  {
+const routes = [{
     path: "/",
     name: "",
     component: () => import("../views/Home.vue"),
@@ -68,6 +67,13 @@ const routes = [
     meta: {
       requiresAuth: true,
     },
+  }, {
+    path: "/nivantis/details",
+    name: "Details",
+    component: () => import("../views/nivantis/Details.vue"),
+    // meta: {
+    //   requiresAuth: true,
+    // },
   },
 ];
 const router = new VueRouter({

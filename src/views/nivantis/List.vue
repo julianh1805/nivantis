@@ -1,18 +1,25 @@
 <template>
   <div class="list">
-    <h1 class="espace">Espace Nivantis</h1>
+    <h1 class="espace mb-4">Espace Nivantis</h1>
     <b-list-group class="mb-3">
       <b-list-group-item
         v-for="commande in commandes"
         :key="commande"
+        v-on:click="details()"
         class="d-flex justify-content-between align-items-center"
-      >{{ commande }}</b-list-group-item>
+      >
+        <p>Demandeur : {{ commande.demandeur }}</p>
+        <p>- Produits : {{commande.medicaments.length}}</p>
+        <p>Commande passée le {{Date.now()}}</p>
+        <p />
+      </b-list-group-item>
     </b-list-group>
   </div>
 </template>
 
 <script>
 import { db } from "../../db.js";
+import router from "../../router/index";
 
 export default {
   data() {
@@ -22,6 +29,11 @@ export default {
   },
   firebase: {
     commandes: db.database().ref("commandes")
+  },
+  methods: {
+    details() {
+      router.push({ path: "details" });
+    }
   }
 };
 </script>
@@ -34,5 +46,14 @@ export default {
 .espace {
   font-size: 18px;
   color: #004660;
+}
+
+p {
+  margin-bottom: 0px !important;
+  color: #495057;
+}
+.list-group-item {
+  width: 60%;
+  margin: auto;
 }
 </style>
