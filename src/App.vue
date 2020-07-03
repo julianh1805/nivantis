@@ -45,6 +45,11 @@ export default {
   color: rgb(241, 241, 241);
 }
 
+.navbar-expand-lg {
+  flex-flow: row nowrap;
+  justify-content: space-between !important;
+}
+
 nav {
   background: rgb(17, 219, 0);
   background: linear-gradient(

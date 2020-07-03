@@ -3,13 +3,7 @@
     <h2 class="mt-4 mb-3">Inscription DMO</h2>
     <form>
       <b-form-group id="email" label label-for="email">
-        <b-form-input
-          id="email"
-          v-model.trim="email"
-          type="email"
-          required
-          placeholder="Email"
-        ></b-form-input>
+        <b-form-input id="email" v-model.trim="email" type="email" required placeholder="Email"></b-form-input>
       </b-form-group>
       <b-form-group id="password" label label-for="password">
         <b-form-input
@@ -22,11 +16,7 @@
       </b-form-group>
       <b-form-group id="password_verification" label label-for="password_verification">
         <b-form-input
-<<<<<<< HEAD
-          id="password-confirm"
-=======
           id="password_confirmation"
->>>>>>> 78edb2a6c9431c0d0c73605ba5423e774e0ce96b
           v-model="password_confirmation"
           type="password"
           name="password_confirmation"
@@ -34,16 +24,16 @@
           placeholder="Confirmation du mot de passe"
         ></b-form-input>
       </b-form-group>
-      <button class="btn principal" @click.prevent="register">
-        S'inscrire
-      </button>
+      <button class="btn principal" @click.prevent="register">S'inscrire</button>
       <!--<div class="errors" v-bind:if="hasErrors">
             <p v:bind-for="error in errors">{{ error }}</p>
       </div>-->
     </form>
-    <b-alert variant="error" :show="showAlert" dismissible>{{
+    <b-alert variant="error" :show="showAlert" dismissible>
+      {{
       this.errorMessage
-    }}</b-alert>
+      }}
+    </b-alert>
   </div>
 </template>
 
@@ -59,7 +49,7 @@ export default {
       email: "",
       password: "",
       password_confirmation: "",
-      errorMessage: "",
+      errorMessage: ""
     };
   },
   methods: {
@@ -68,12 +58,12 @@ export default {
       if (this.password === this.password_confirmation) {
         db.auth()
           .createUserWithEmailAndPassword(this.email, this.password)
-          .then((user) => {
+          .then(user => {
             user.role = "dmo";
             this.$store.dispatch("setUser", user);
             this.$router.push("/login/dmo");
           })
-          .catch((error) => {
+          .catch(error => {
             this.errorMessage = error.message;
             this.showAlert = true;
           });
@@ -81,8 +71,8 @@ export default {
         this.errorMessage = "Vérifié votre mot de passe";
         this.showAlert = true;
       }
-    },
-  },
+    }
+  }
 };
 </script>
 <style scoped>
