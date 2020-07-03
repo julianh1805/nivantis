@@ -2,6 +2,7 @@
   <div class="list">
     <h1 class="espace mb-4">Espace Nivantis</h1>
     <b-list-group class="mb-3">
+      <h2 class="my-3">Numéro de commandes : {{commandes.length}}</h2>
       <b-list-group-item
         v-for="commande in commandes"
         :key="commande"
@@ -51,8 +52,12 @@ p {
   margin-bottom: 0px !important;
   color: #495057;
 }
+h2,
 .list-group-item {
   width: 60%;
   margin: auto;
+}
+h2 {
+  font-size: 22px;
 }
 </style>
