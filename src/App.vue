@@ -3,19 +3,32 @@
     <div>
       <b-navbar toggleable="lg" type="dark" variant="info">
         <router-link to="/">Nivantis</router-link>
-        <router-link to="/">Se déconnecter</router-link>
+        <b-button variant="danger" v-if="$store.getters.isLogged" @click.prevent="signOut">
+          Se déconnecter
+        </b-button>
       </b-navbar>
     </div>
     <router-view />
   </div>
 </template>
 <script>
+import { db } from "./db.js";
 export default {
   data() {
     return {
-      drawer: false
+      drawer: false,
     };
-  }
+  },
+  methods: {
+    signOut() {
+      db.auth()
+        .signOut()
+        .then(() => {
+          this.$store.dispatch("logOut");
+          this.$router.push("/");
+        });
+    },
+  },
 };
 </script>
 
@@ -95,5 +108,8 @@ button.secondary:hover {
   color: #495057;
   background-color: #c4c4c4;
   border-color: #c4c4c4;
+}
+.navbar-expand-lg {
+  justify-content: space-between !important;
 }
 </style>
